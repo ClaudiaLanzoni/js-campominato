@@ -57,7 +57,7 @@
     let staiPerdendo = false; //l'informazione che "hai perso" arriva prima!!! 
                             //l'informazione che "hai vinto" arriva per ultima!!!
 
-    for (i = 0; i < maxRandomNumber; i++ ) {
+    for (i = 0; i < numeroScelte; i++ ) {
         let numeroUtente = prompt('Inserisci il ' + (i+1) + '° numero');
 
         playerNumbers.push(numeroUtente);
