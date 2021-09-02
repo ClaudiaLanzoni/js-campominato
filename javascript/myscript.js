@@ -31,9 +31,9 @@
 
     let bombList = []; //array vuoto da riempire con "bombe"
 
-    const bombs = 3;
+    const bombs = 3; //sarebbe 16
 
-    const maxRandomNumber = 10;
+    const maxRandomNumber = 10; //sarebbe 100
 
     let numeroScelte = maxRandomNumber - bombs;
 
@@ -41,7 +41,7 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;  
     } 
 
-    while(bombList.length < maxRandomNumber) { //finchè l'array non è di 16 elementi continua a pusharci dentro il numero random
+    while(bombList.length < 16) { //finchè l'array non è di 16 elementi continua a pusharci dentro il numero random
 
         let numeroRandom = numeroRandomPc(1, 100);
         if(!bombList.includes(numeroRandom)) { //non include
@@ -61,35 +61,27 @@
         let numeroUtente = prompt('Inserisci il ' + (i+1) + '° numero');
 
         playerNumbers.push(numeroUtente);
+
+        if (!bombList.includes(numeroUtente)) { //lo inserisco unicamente per poter fare la verifica dell'input col while
+
+            while(numeroUtente.length === 0 || Number.isNaN(numeroUtente)) { //se input non è corretto fa ripartire 
+                                                                            // lo stesso prompt, lo si capisce dal testo 
+                                                                            // del prompt
+                numeroUtente = parseInt(prompt('Inserisci il ' + (i+1) + '° numero'));
+            }
+        }
                                             
         if (bombList.includes(parseInt(numeroUtente))) { 
-            //includes non funzionava perchè non era numero in array che invece è di numeri
+            //includes non funzionava perchè non avendo messo parseInt non inseriva l'input in un array che è di numeri
             staiPerdendo = true;
             
             break; //mi permette di uscire subito dal ciclo for nel caso in cui l'input sia in bombList
-            
-
-        /*if (!bombList.includes(parseInt(numeroUtente))) { 
-
-            
-
-            //!!!!!
-            /*while(numeroUtente.length === 0 || Number.isNaN(numeroUtente)) { //questa verifica funziona solo per 
-                                                                                //un invio a vuoto e non se si mettono
-                                                                                //input Number.isNaN
-                numeroUtente = parseInt(prompt('Inserisci il ' + (i+1) + '° numero'));
-            }*/
-
-           
-        }
+        }    
     }
 
+    console.log(playerNumbers); //stampa l'array con i numeri giocati dall'utente
     
-
-    //!!!!!
-    console.log(playerNumbers); //stampa l'array con i numeri del giocatore, però così li stampa tutti ...
-    
-    if (staiPerdendo == true) { //perdi perchè è la condizione in cui il numero utente è contenuto in bombList
+    if (staiPerdendo == true) { //"perdi" perchè è la condizione in cui il numero utente è contenuto in bombList
         alert('HAI PERSO')
     } else { 
         alert('HAI VINTO'); //l'informazione che "hai perso" arriva prima!!! 
