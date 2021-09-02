@@ -44,19 +44,29 @@
 
     }
 
-    console.log(bombList); 
+    console.log(bombList); //elenco numeri random del pc "bombe"
 
     let playerNumbers = []; //array per trattenere man mano i numeri scelti dal giocatore
+
+    let staiPerdendo = false; //l'informazione che "hai perso" arriva prima!!! 
+                            //l'informazione che "hai vinto" arriva per ultima!!!
+
   
-    let loser = false; // è falso che ho perso ---> "ho vinto"
 
-    for (i = 0; i < bombList.length; i++ ) { //l'informazione che "hai perso" arriva prima!!! 
-                                            //rispetto all'info che sto vincendo che arriva alla fine
-        if (!loser) { //è falso che è falso che ho perso ---> ho perso
+    for (i = 0; i < bombList.length; i++ ) {
+        let numeroUtente = prompt('Inserisci il ' + (i+1) + '° numero');
+
+        playerNumbers.push(numeroUtente);
+                                            
+        if (bombList.includes(parseInt(numeroUtente))) { 
+            //includes non funzionava perchè non era numero in array che invece è di numeri
+            staiPerdendo = true;
+            break; //mi permette di uscire subito dal ciclo for nel caso in cui l'input sia in bombList
             
-            let numeroUtente = prompt('Inserisci il ' + (i+1) + '° numero');
 
-            playerNumbers.push(numeroUtente);
+        /*if (!bombList.includes(parseInt(numeroUtente))) { 
+
+            
 
             //!!!!!
             /*while(numeroUtente.length === 0 || Number.isNaN(numeroUtente)) { //questa verifica funziona solo per 
@@ -65,20 +75,28 @@
                 numeroUtente = parseInt(prompt('Inserisci il ' + (i+1) + '° numero'));
             }*/
 
-            if (bombList.includes(parseInt(numeroUtente))) { //lo fa solo quando becca la bomba 
-                                    //includes non funzionava perchè non era numero in array che invece è di numeri
-                loser = true;
-            }
+           
         }
-
     }
+
+    
 
     //!!!!!
     console.log(playerNumbers); //stampa l'array con i numeri del giocatore, però così li stampa tutti ...
     
-    if (!loser) {
-        alert('HAI VINTO')
-    } else {
-        alert('HAI PERSO');
+    if (staiPerdendo == true) { //perdi perchè è la condizione in cui il numero utente è contenuto in bombList
+        alert('HAI PERSO')
+    } else { 
+        alert('HAI VINTO'); //l'informazione che "hai perso" arriva prima!!! 
+                            //l'informazione che "hai vinto" arriva per ultima!!!
     }
 
+
+
+
+
+
+
+
+
+    
