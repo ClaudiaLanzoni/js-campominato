@@ -41,7 +41,7 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;  
     } 
 
-    while(bombList.length < 16) { //finchè l'array non è di 16 elementi continua a pusharci dentro il numero random
+    while(bombList.length < bombs) { //finchè l'array non è di "bombs" elementi continua a pusharci dentro il numero random
 
         let numeroRandom = numeroRandomPc(1, 100);
         if(!bombList.includes(numeroRandom)) { //non include
