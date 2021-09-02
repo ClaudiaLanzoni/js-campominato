@@ -31,14 +31,20 @@
 
     let bombList = []; //array vuoto da riempire con "bombe"
 
+    const bombs = 3;
+
+    const maxRandomNumber = 10;
+
+    let numeroScelte = maxRandomNumber - bombs;
+
     function numeroRandomPc(min, max) { //funzione per generare numero randomico ("bomba") da mettere nell'array bombList
         return Math.floor(Math.random() * (max - min + 1)) + min;  
     } 
 
-    while(bombList.length < 5) { //finchè l'array non è di 16 elementi continua a pusharci dentro il numero random
+    while(bombList.length < maxRandomNumber) { //finchè l'array non è di 16 elementi continua a pusharci dentro il numero random
 
         let numeroRandom = numeroRandomPc(1, 100);
-        if(!bombList.includes(numeroRandom)) {
+        if(!bombList.includes(numeroRandom)) { //non include
             bombList.push(numeroRandom);
         }
 
@@ -51,9 +57,7 @@
     let staiPerdendo = false; //l'informazione che "hai perso" arriva prima!!! 
                             //l'informazione che "hai vinto" arriva per ultima!!!
 
-  
-
-    for (i = 0; i < bombList.length; i++ ) {
+    for (i = 0; i < maxRandomNumber; i++ ) {
         let numeroUtente = prompt('Inserisci il ' + (i+1) + '° numero');
 
         playerNumbers.push(numeroUtente);
@@ -61,6 +65,7 @@
         if (bombList.includes(parseInt(numeroUtente))) { 
             //includes non funzionava perchè non era numero in array che invece è di numeri
             staiPerdendo = true;
+            
             break; //mi permette di uscire subito dal ciclo for nel caso in cui l'input sia in bombList
             
 
