@@ -31,13 +31,28 @@
 
     let bombList = []; //array vuoto da riempire con "bombe"
 
-    const bombs = 3; //sarebbe 16
+    let bombs; //sarebbe 16
 
-    const maxRandomNumber = 10; //sarebbe 100
+    let maxRandomNumber; //sarebbe 100
+
+    //sezione su input difficoltà
+    const difficultyLevelsList = ['facile', 'medio', 'difficile']; //array di livelli difficoltà
+
+    let chosenDifficultyLevel = prompt('Scegli un livello di difficoltà tra facile, medio e difficile'); 
+
+    while (chosenDifficultyLevel.length == 0 || !difficultyLevelsList.includes(chosenDifficultyLevel.toLowerCase())) {
+        chosenDifficultyLevel = prompt('Scegli un livello di difficoltà tra facile, medio e difficile');
+    }
+
+    let gameChance = getLevel(chosenDifficultyLevel); //creo variabile che estrapola funzione per il livello difficoltà
+
+    bombs = gameChance[0]; //collego il primo elemento dell'array gameChance
+    maxRandomNumber = gameChance[1]; //collego il secondo elemento dell'array gameChance
 
     let numeroScelte = maxRandomNumber - bombs;
 
-    function numeroRandomPc(min, max) { //funzione per generare numero randomico ("bomba") da mettere nell'array bombList
+    //funzione per generare numero randomico ("bomba") da mettere nell'array bombList
+    function numeroRandomPc(min, max) { 
         return Math.floor(Math.random() * (max - min + 1)) + min;  
     } 
 
@@ -60,7 +75,7 @@
     for (i = 0; i < numeroScelte; i++ ) {
         let numeroUtente = prompt('Inserisci il ' + (i+1) + '° numero');
 
-        playerNumbers.push(numeroUtente);
+        playerNumbers.push(numeroUtente); //inserisce i numeri giocati dall'utente nell'array apposito
 
         if (!bombList.includes(numeroUtente)) { //lo inserisco unicamente per poter fare la verifica dell'input col while
 
@@ -71,8 +86,8 @@
             }
         }
                                             
-        if (bombList.includes(parseInt(numeroUtente))) { 
-            //includes non funzionava perchè non avendo messo parseInt non inseriva l'input in un array che è di numeri
+        if (bombList.includes(parseInt(numeroUtente))) { //includes non funzionava perchè non avendo messo parseInt non inseriva l'input in un array che è di numeri
+       
             staiPerdendo = true;
             
             break; //mi permette di uscire subito dal ciclo for nel caso in cui l'input sia in bombList
@@ -88,11 +103,37 @@
                             //l'informazione che "hai vinto" arriva per ultima!!!
     }
 
+    //funzione per rendere livelli di difficoltà
+    function getLevel(difficultyLevel) {
 
+        let bombsAmount; //quante bombe sono presenti
+        let gameBoxes; //caselle del gioco
+    
 
+    switch (difficultyLevel) {
+        case 'facile':
+            bombsAmount = 3;
+            gameBoxes = 20;
+            break;
+        
+        case 'medio':
+            bombsAmount = 3;
+            gameBoxes = 15;
+            break;
+        
+        case 'difficile':
+            bombsAmount = 3;
+            gameBoxes = 10;
+            break;
 
+        default:
+            bombsAmount = 3;
+            gameBoxes = 20;
+            break;
+    }
+    return [bombsAmount, gameBoxes];
 
-
+    }
 
 
 
